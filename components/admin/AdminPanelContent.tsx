@@ -7,9 +7,14 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { useToast } from "@/hooks/use-toast"
-import { Upload, Users, Calendar, Settings, Heart, MapPin, Phone, Mail, Instagram, Facebook, Hash } from "lucide-react"
 
-export default function AdminPanelContent({ user }) {
+import { User } from "@/lib/auth"
+
+interface AdminPanelContentProps {
+  user: User;
+}
+
+export default function AdminPanelContent({ user }: AdminPanelContentProps) {
   const [activeTab, setActiveTab] = useState("dashboard")
   const [coupleData, setCoupleData] = useState({
     brideName: "Emily",

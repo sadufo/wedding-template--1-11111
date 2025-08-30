@@ -21,20 +21,17 @@ export async function POST(request: NextRequest) {
       user,
       expires: expires.toISOString(),
     }
-    const cookieStore = cookies()
-    cookieStore.set("session", JSON.stringify(session), {
+    const response = NextResponse.json({ success: true, user: { id: user.id, email: user.email, name: user.name } });
+    response.cookies.set("session", JSON.stringify(session), {
       expires,
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
-    })
-
-    const response = NextResponse.json({ success: true, user: { id: user.id, email: user.email, name: user.name } })
-    response.headers.set("Access-Control-Allow-Origin", "*")
-    response.headers.set("Access-Control-Allow-Methods", "POST, OPTIONS")
-    response.headers.set("Access-Control-Allow-Headers", "Content-Type")
-
-    return response
+    });
+    response.headers.set("Access-Control-Allow-Origin", "*");
+    response.headers.set("Access-Control-Allow-Methods", "POST, OPTIONS");
+    response.headers.set("Access-Control-Allow-Headers", "Content-Type");
+    return response;
   } catch (error) {
     return NextResponse.json({ error: "Internal server error" }, { status: 500 })
   }
