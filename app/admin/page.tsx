@@ -1,6 +1,7 @@
-"use client"
 
-import { requireAuth } from "@/lib/auth"
+import { cookies } from "next/headers"
+import { redirect } from "next/navigation"
+import { Session } from "@/lib/auth"
 import { AdminHeader } from "@/components/admin/admin-header"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
@@ -10,6 +11,20 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { useToast } from "@/hooks/use-toast"
 import { Upload, Users, Calendar, Settings, Heart, MapPin, Phone, Mail, Instagram, Facebook, Hash } from "lucide-react"
+
+async function requireAuth() {
+  const cookieStore = cookies()
+  const sessionCookie = cookieStore.get("session")
+  if (!sessionCookie) {
+    redirect("/admin/login")
+  }
+  const session: Session = JSON.parse(sessionCookie.value)
+  if (new Date(session.expires) < new Date()) {
+    cookieStore.delete("session")
+    redirect("/admin/login")
+  }
+  return session.user
+}
 
 export default async function AdminPage() {
   const user = await requireAuth()
