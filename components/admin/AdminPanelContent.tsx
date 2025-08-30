@@ -155,9 +155,54 @@ export default function AdminPanelContent({ user }: AdminPanelContentProps) {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Можно использовать <AdminHeader user={user} /> если нужно отображать реального пользователя */}
-      {/* ...далее весь JSX из демо-админки... */}
-      {/* Весь переносимый код демо-админки вставлен сюда */}
+      {/* Пример реального JSX из демо-админки */}
+      {/* Можно добавить <AdminHeader user={user} /> */}
+      <div className="container mx-auto py-6">
+        <h1 className="text-2xl font-bold mb-4">Wedding Admin Dashboard</h1>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+          <Card>
+            <CardHeader>
+              <CardTitle>Total RSVPs</CardTitle>
+              <CardDescription>2 attending, 1 declined</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">3</div>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Expected Guests</CardTitle>
+              <CardDescription>Including plus ones</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">3</div>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>Days Until Wedding</CardTitle>
+              <CardDescription>June 15, 2024</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">45</div>
+            </CardContent>
+          </Card>
+        </div>
+        <Card>
+          <CardHeader>
+            <CardTitle>Quick Actions</CardTitle>
+            <CardDescription>Common tasks and shortcuts</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              <Button variant="outline" className="h-20 flex-col gap-2 bg-transparent" onClick={() => setActiveSection("couple")}> <Heart className="w-6 h-6" /> Edit Couple Info </Button>
+              <Button variant="outline" className="h-20 flex-col gap-2 bg-transparent" onClick={() => setActiveSection("events")}> <Calendar className="w-6 h-6" /> Manage Events </Button>
+              <Button variant="outline" className="h-20 flex-col gap-2 bg-transparent" onClick={() => setActiveSection("rsvp")}> <Users className="w-6 h-6" /> View RSVPs </Button>
+              <Button variant="outline" className="h-20 flex-col gap-2 bg-transparent" onClick={() => setActiveSection("settings")}> <Settings className="w-6 h-6" /> Site Settings </Button>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 }
