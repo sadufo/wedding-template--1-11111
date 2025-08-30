@@ -3,14 +3,6 @@ import { cookies } from "next/headers"
 import { redirect } from "next/navigation"
 import { Session } from "@/lib/auth"
 import { AdminHeader } from "@/components/admin/admin-header"
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { useToast } from "@/hooks/use-toast"
-import { Upload, Users, Calendar, Settings, Heart, MapPin, Phone, Mail, Instagram, Facebook, Hash } from "lucide-react"
 
 async function requireAuth() {
   const cookieStore = cookies()
