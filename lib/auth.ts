@@ -1,5 +1,4 @@
-import { cookies } from "next/headers"
-import { redirect } from "next/navigation"
+// Работа с cookies и редиректом должна быть реализована в серверных компонентах или route handlers
 import bcrypt from "bcryptjs"
 
 export interface User {
@@ -54,49 +53,11 @@ export async function authenticateUser(email: string, password: string): Promise
   }
 }
 
-export async function createSession(user: User): Promise<void> {
-  const expires = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 7 days
-  const session: Session = {
-    user,
-    expires: expires.toISOString(),
-  }
+// Работа с сессией и cookies перенесите в серверные компоненты или route handlers
+// Например, используйте cookies() внутри app/api/auth/login/route.ts
 
-  const cookieStore = await cookies()
-  cookieStore.set("session", JSON.stringify(session), {
-    expires,
-    httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
-  })
-}
+// Получение сессии реализуйте в серверных компонентах или route handlers
 
-export async function getSession(): Promise<Session | null> {
-  try {
-    const cookieStore = await cookies()
-    const sessionCookie = cookieStore.get("session")
-    if (!sessionCookie) return null
+// Удаление сессии реализуйте в серверных компонентах или route handlers
 
-    const session: Session = JSON.parse(sessionCookie.value)
-    if (new Date(session.expires) < new Date()) {
-      await destroySession()
-      return null
-    }
-
-    return session
-  } catch {
-    return null
-  }
-}
-
-export async function destroySession(): Promise<void> {
-  const cookieStore = await cookies()
-  cookieStore.delete("session")
-}
-
-export async function requireAuth(): Promise<User> {
-  const session = await getSession()
-  if (!session) {
-    redirect("/admin/login")
-  }
-  return session.user
-}
+// Проверку авторизации и редирект реализуйте в серверных компонентах или route handlers
