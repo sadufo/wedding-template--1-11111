@@ -1,11 +1,11 @@
 import { NextResponse } from "next/server"
-import { destroySession } from "@/lib/auth"
 
 export async function POST() {
   try {
-    await destroySession()
-    return NextResponse.json({ success: true })
+    const response = NextResponse.json({ success: true });
+    response.cookies.delete("session");
+    return response;
   } catch (error) {
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 })
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
